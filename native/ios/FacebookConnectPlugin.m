@@ -8,7 +8,7 @@
 //
 
 #import "FacebookConnectPlugin.h"
-#import "JSON.h"
+#import "FBSBJSON.h"
 
 @interface FacebookConnectPlugin ()
 <FBDialogDelegate>
@@ -203,7 +203,7 @@
         if ([[options objectForKey:key] isKindOfClass:[NSString class]]) {
             [params setObject:[options objectForKey:key] forKey:key];
         } else {
-            SBJSON *jsonWriter = [[SBJSON new] autorelease];
+            FBSBJSON *jsonWriter = [[FBSBJSON new] autorelease];
             NSString *paramString = [jsonWriter stringWithObject:[options objectForKey:key]];
             [params setObject:paramString forKey:key];
         }
