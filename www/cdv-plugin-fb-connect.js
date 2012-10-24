@@ -19,7 +19,11 @@ CDV.FB = {
                  
         localStorage.setItem('cdv_fb_session', JSON.stringify(authResponse));
         FB.Auth.setAuthResponse(authResponse, 'connected');
+       } else {
+        FB.Auth.setAuthResponse(null, 'notConnected');
        }
+      } else {
+        FB.Auth.setAuthResponse(null, 'notConnected');
       }
       console.log('Cordova Facebook Connect plugin initialized successfully.');
     }, (fail?fail:null), 'org.apache.cordova.facebook.Connect', 'init', [apiKey]);
