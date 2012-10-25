@@ -197,16 +197,25 @@ public class ConnectPlugin extends Plugin {
     }
 
     public JSONObject getResponse() {
-        String response = "{"+
-            "\"status\": \""+(facebook.isSessionValid() ? "connected" : "unknown")+"\","+
+    	String response;
+    	if (facebook.isSessionValid()) {
+    		long expiresTimeInterval = facebook.getAccessExpires() - System.currentTimeMillis();
+    		long expiresIn = (expiresTimeInterval > 0) ? expiresTimeInterval : 0;
+    		response = "{"+
+            "\"status\": \"connected\","+
             "\"authResponse\": {"+
               "\"accessToken\": \""+facebook.getAccessToken()+"\","+
-              "\"expiresIn\": \""+facebook.getAccessExpires()+"\","+
+              "\"expiresIn\": \""+expiresIn+"\","+
               "\"session_key\": true,"+
               "\"sig\": \"...\","+
               "\"userId\": \""+this.userId+"\""+
             "}"+
           "}";
+    	} else {
+    		response = "{"+
+            "\"status\": \"unknown\""+
+          "}";
+    	}
 
         try {
             return new JSONObject(response);
@@ -267,20 +276,25 @@ public class ConnectPlugin extends Plugin {
           	Log.d(TAG, "authorized");
             Log.d(TAG, values.toString());
 
-            try {
-                JSONObject o = new JSONObject(this.fba.facebook.request("/me"));
-                this.fba.userId = o.getString("id");
-                this.fba.success(getResponse(), this.fba.callbackId);
-            } catch (MalformedURLException e) {
-               
-                e.printStackTrace();
-            } catch (IOException e) {
-               
-                e.printStackTrace();
-            } catch (JSONException e) {
-               
-                e.printStackTrace();
-            }
+            Thread t = new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        JSONObject o = new JSONObject(fba.facebook.request("/me"));
+                        fba.userId = o.getString("id");
+                        fba.success(getResponse(), fba.callbackId);
+                    } catch (MalformedURLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            });
+            t.start();
         }
 
         public void onFacebookError(FacebookError e) {
