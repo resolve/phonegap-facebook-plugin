@@ -58,13 +58,13 @@ public class ConnectPlugin extends Plugin {
                         JSONObject o = new JSONObject(this.facebook.request("/me"));
                         this.userId = o.getString("id");
                     } catch (MalformedURLException e) {
-                       
+
                         e.printStackTrace();
                     } catch (IOException e) {
-                       
+
                         e.printStackTrace();
                     } catch (JSONException e) {
-                       
+
                         e.printStackTrace();
                     }
                 }
@@ -73,10 +73,10 @@ public class ConnectPlugin extends Plugin {
                     return new PluginResult(PluginResult.Status.OK, this.getResponse());
                 }
                 else {
-                    return new PluginResult(PluginResult.Status.NO_RESULT);
+                    return new PluginResult(PluginResult.Status.OK);
                 }
             } catch (JSONException e) {
-               
+
                 e.printStackTrace();
                 return new PluginResult(PluginResult.Status.ERROR, "Invalid JSON args used. expected a string as the first arg.");
             }
@@ -91,7 +91,7 @@ public class ConnectPlugin extends Plugin {
                         permissions[i] = args.getString(i);
                     }
                 } catch (JSONException e1) {
-                   
+
                     e1.printStackTrace();
                     return new PluginResult(PluginResult.Status.ERROR, "Invalid JSON args used. Expected a string array of permissions.");
                 }
@@ -120,11 +120,11 @@ public class ConnectPlugin extends Plugin {
                     prefs.edit().putLong("access_expires", -1).commit();
                     prefs.edit().putString("access_token", null).commit();
                 } catch (MalformedURLException e) {
-                   
+
                     e.printStackTrace();
                     pr = new PluginResult(PluginResult.Status.MALFORMED_URL_EXCEPTION, "Error logging out.");
                 } catch (IOException e) {
-                   
+
                     e.printStackTrace();
                     pr = new PluginResult(PluginResult.Status.IO_EXCEPTION, "Error logging out.");
                 }
@@ -141,7 +141,7 @@ public class ConnectPlugin extends Plugin {
                 pr = new PluginResult(PluginResult.Status.ERROR, "Must call init before getLoginStatus.");
             }
         }
-        
+
         else if (action.equals("showDialog")) {
         	if (facebook != null) {
         		Bundle collect = new Bundle();
@@ -151,7 +151,7 @@ public class ConnectPlugin extends Plugin {
         		} catch (JSONException e) {
         			params = new JSONObject();
         		}
-        		
+
         		final ConnectPlugin me = this;
         		Iterator<?> iter = params.keys();
         		while (iter.hasNext()) {
@@ -183,7 +183,7 @@ public class ConnectPlugin extends Plugin {
         	} else {
         		pr = new PluginResult(PluginResult.Status.ERROR, "Must call init before showDialog.");
         	}
-        	
+
         }
 
         return pr;
@@ -220,12 +220,12 @@ public class ConnectPlugin extends Plugin {
         try {
             return new JSONObject(response);
         } catch (JSONException e) {
-           
+
             e.printStackTrace();
         }
         return new JSONObject();
     }
-    
+
     class UIDialogListener implements DialogListener {
    	 final ConnectPlugin fba;
 
