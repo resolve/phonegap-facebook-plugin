@@ -5103,18 +5103,18 @@ FB.provide('', {
     }
 
     // CORDOVA PATCH
-    // If the nativeInterface arg is specified then call out to the nativeInterface 
+    // If the nativeInterface arg is specified then call out to the nativeInterface
     // which uses the native app rather than using the iframe / popup web
     if (FB._nativeInterface) {
         switch (params.method) {
             case 'auth.login':
-                FB._nativeInterface.login(params, cb, function(e) {alert('Cordova Facebook Connect plugin fail on login!' + e);});
+                FB._nativeInterface.login(params, cb, function(e) {alert(e);});
                 break;
             case 'permissions.request':
-                FB._nativeInterface.login(params, cb, function(e) {alert('Cordova Facebook Connect plugin fail on login!' + e);});
+                FB._nativeInterface.login(params, cb, function(e) {alert(e);});
                 break;
             case 'permissions.oauth':
-                FB._nativeInterface.login(params, cb, function(e) {alert('Cordova Facebook Connect plugin fail on login!' + e);});
+                FB._nativeInterface.login(params, cb, function(e) {alert(e);});
                 break;
             case 'auth.logout':
                 FB._nativeInterface.logout(cb, function(e) {alert('Cordova Facebook Connect plugin fail on logout!');});
