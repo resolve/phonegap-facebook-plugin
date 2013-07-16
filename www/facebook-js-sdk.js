@@ -5117,24 +5117,24 @@ FB.provide('', {
                 FB._nativeInterface.login(params, cb, function(e) {alert(e);});
                 break;
             case 'auth.logout':
-                FB._nativeInterface.logout(cb, function(e) {alert('Cordova Facebook Connect plugin fail on logout!');});
+                FB._nativeInterface.logout(cb, function(e) {console.log('Cordova Facebook Connect plugin fail on logout!');});
                 break;
             case 'auth.status':
-                FB._nativeInterface.getLoginStatus(cb, function(e) {alert('Cordova Facebook Connect plugin fail on auth.status!');});
+                FB._nativeInterface.getLoginStatus(cb, function(e) {console.log('Cordova Facebook Connect plugin fail on auth.status!');});
                 break;
             case 'login.status':
-                FB._nativeInterface.getLoginStatus(cb, function(e) {alert('Cordova Facebook Connect plugin fail on auth.status!');});
+                FB._nativeInterface.getLoginStatus(cb, function(e) {console.log('Cordova Facebook Connect plugin fail on auth.status!');});
                 break;
             case 'feed':
-                FB._nativeInterface.dialog(params, cb, function(e) {alert('Cordova Facebook Connect plugin fail on auth.status!');});
+                FB._nativeInterface.dialog(params, cb, function(e) {console.log('Cordova Facebook Connect plugin fail on auth.status!');});
                 break;
             case 'apprequests':
-                FB._nativeInterface.dialog(params, cb, function(e) {alert('Cordova Facebook Connect plugin fail on auth.status!');});
+                FB._nativeInterface.dialog(params, cb, function(e) {console.log('Cordova Facebook Connect plugin fail on auth.status!');});
             break;
         }
         return;
     }
-    
+
     // process popup-only permissions
     if ((params.method == 'permissions.request' ||
          params.method == 'permissions.oauth') &&
