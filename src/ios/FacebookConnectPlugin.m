@@ -42,7 +42,7 @@
     switch (state) {
         case FBSessionStateOpen:
         case FBSessionStateOpenTokenExtended:
-            if (!error) {
+            if (!error || error.fberrorCategory == FBErrorCategoryUserCancelled) {
                 // We have a valid session
                 
                 if (state == FBSessionStateOpen) {
